@@ -54,6 +54,9 @@ Follow these steps to integrate the jQuery Table Repeater into your project:
 <!-- Initialize Table Repeater -->
 <script>
   $(document).ready(function() {
-    $('#yourTable').tableRepeater();
+    $(document).find('#yourTable').repeater({
+        sortable: true
+    });
+
   });
 </script>
