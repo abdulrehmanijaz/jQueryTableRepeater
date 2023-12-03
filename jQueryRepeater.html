@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <title>jQueryTableRepeater</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+   </head>
+   <style>
+    @import url('https://kit-pro.fontawesome.com/releases/latest/css/pro.min.css');
+.table-res {
+    width: 100%;
+    overflow-x: auto;
+}
+    header, footer,
+    .page-bottom-section{
+        display:none;
+    }
+    .table-bordered thead td, .table-bordered thead th {
+    border-bottom-width: 1px;
+        vertical-align: middle;
+}
+    .table-res input[type="checkbox"]{
+        height:20px;
+}
+    .table-res input,.table-res select,.table-res textarea {
+    border-radius: 10px;
+    padding: 7px;
+    border: 1px solid #dee2e6;
+    font-size: 15px;
+        width:100%;
+        min-width: 180px;
+}
+    .page-bottom-section{
+        display:none;
+    }
+    .table-res .table thead th {
+    background-color: #0f569b;
+}
+    .cl-head {
+    display: flex;
+}
+    .cl-head input{
+    margin-right:6px;
+    }
+    .client-detail {
+        width: 600px;
+        margin: 40px auto;
+    }
+    form#auditReport_Form {
+    font-family: 'Inter', sans-serif;
+}
+    .table-ctm {
+        margin: 0 auto;
+    }
+    .cell {
+        color: #fff;
+        background-color: #0f569b;
+        text-align: center;
+    }
+    .ctm-check {
+        transform: scale(0.6);
+    }
+    .ctm-check:focus {
+        box-shadow: none !important;
+    }
+    .table-ctm {
+        margin: 60px 30px;
+    }
+    .table-ctm.audit_submit_button {
+        margin-top: 0;
+    }
+    .client-detail table td,
+    .table-ctm table td,
+    .client-detail table th,
+    .table-ctm table th {
+        border: 1px solid #333 !important;
+    }
+    .audit_submit_button {
+        background:#0f569b;
+    }
+    .table-body{
+        counter-reset: section;
+    }
+    .table-row::before{
+        counter-increment: section;
+        content: "Section " counter(section) ": ";
+    }
+    button.add-cl {
+    background: #05559a !important;
+    border-color: transparent;
+        transition:ease all 0.4s;
+        box-shadow:none !important;
+        outline:none !important; 
+        font-weight: 600;
+    font-size: 15px;
+}
+    button.add-cl i{
+    margin-right:4px;
+    }
+    button.add-cl:hover{
+    background:transparent !important;
+    color:#05559a !important;
+    border-color:#05559a;
+    }
+</style>
+   <body>
+      <h2>jQueryRepeaterTable</h2>
+      <form id="formId" onsubmit="return false;">
+	      <div id="repeaterTable">
+	         <button class="add-cl  btn btn-primary repeater-add-column mb-3 mt-3"><i class="fas fa-plus"></i> Add Column</button>
+	         <div class="table-res">
+	            <table class="table table-bordered text-center repeater-table" data-group="data-group">
+	               <thead data-group="audit_report_column">
+	                  <tr>
+	                     <th></th>
+	                     <th>
+	                        <div class="cl-head">
+	                           <input type="text" data-name="column_name" name="audit_report_column[1]column_name" value="Audit Section"><button class="btn btn-danger repeater-remove-column"><i class="fas fa-times"></i></button>
+	                        </div>
+	                     </th>
+	                     <th>
+	                        <div class="cl-head">
+	                           <input type="text" data-name="column_name" name="audit_report_column[2]column_name" value="Audit #1"><button class="btn btn-danger repeater-remove-column"><i class="fas fa-times"></i></button>
+	                        </div>
+	                     </th>
+	                     <th>
+	                        <div class="cl-head">
+	                           <input type="text" data-name="column_name" name="audit_report_column[3]column_name" value="Audit #2"><button class="btn btn-danger repeater-remove-column"><i class="fas fa-times"></i></button>
+	                        </div>
+	                     </th>
+	                     <th>
+	                        <div class="cl-head">
+	                           <input type="text" data-name="column_name" name="audit_report_column[4]column_name" value="Audit #3"><button class="btn btn-danger repeater-remove-column"><i class="fas fa-times"></i></button>
+	                        </div>
+	                     </th>
+	                     <th>
+	                        <div class="cl-head">
+	                           <input type="text" data-name="column_name" name="audit_report_column[5]column_name" value="Instructions"><button class="btn btn-danger repeater-remove-column"><i class="fas fa-times"></i></button>
+	                        </div>
+	                     </th>
+	                  </tr>
+	               </thead>
+	               <tbody data-group="audit_report_rows" class="ui-sortable">
+	                  <tr>
+	                     <td class="row-label">Row 1</td>
+	                     <td><input type="text" name="audit_report_rows[0][1][text]" value="Screen Reader"></td>
+	                     <td><input type="number" name="audit_report_rows[0][2][number]" value="1"></td>
+	                     <td><input type="number" name="audit_report_rows[0][3][number]" value="1"></td>
+	                     <td><input type="number" name="audit_report_rows[0][4][number]" value="1"></td>
+	                     <td><input type="text" name="audit_report_rows[0][5][text]" value="Lorem Ipsum is simply dummy text of the printing and typesetting industry"></td>
+	                     <td><button class="btn btn-danger repeater-remove-row"><i class="fas fa-trash-alt"></i></button></td>
+	                  </tr>
+	                  <tr>
+	                     <td class="row-label">Row 2</td>
+	                     <td><input type="text" name="audit_report_rows[1][1][text]" value="Keyboard"></td>
+	                     <td><input type="number" name="audit_report_rows[1][2][number]" value="2"></td>
+	                     <td><input type="number" name="audit_report_rows[1][3][number]" value="2"></td>
+	                     <td><input type="number" name="audit_report_rows[1][4][number]" value="2"></td>
+	                     <td><input type="text" name="audit_report_rows[1][5][text]" value="Lorem Ipsum is simply dummy text of the printing and typesetting industry"></td>
+	                     <td><button class="btn btn-danger repeater-remove-row"><i class="fas fa-trash-alt"></i></button></td>
+	                  </tr>
+	                  <tr>
+	                     <td class="row-label">Row 3</td>
+	                     <td><input type="text" name="audit_report_rows[2][1][text]" value="Browser Zoom"></td>
+	                     <td><input type="number" name="audit_report_rows[2][2][number]" value="3"></td>
+	                     <td><input type="number" name="audit_report_rows[2][3][number]" value="3"></td>
+	                     <td><input type="number" name="audit_report_rows[2][4][number]" value="3"></td>
+	                     <td><input type="text" name="audit_report_rows[2][5][text]" value="Lorem Ipsum is simply dummy text of the printing and typesetting industry"></td>
+	                     <td><button class="btn btn-danger repeater-remove-row"><i class="fas fa-trash-alt"></i></button></td>
+	                  </tr>
+	                  <tr>
+	                     <td class="row-label">Row 4</td>
+	                     <td><input type="text" name="audit_report_rows[3][1][text]" value="Axe"></td>
+	                     <td><input type="number" name="audit_report_rows[3][2][number]" value="4"></td>
+	                     <td><input type="number" name="audit_report_rows[3][3][number]" value="4"></td>
+	                     <td><input type="number" name="audit_report_rows[3][4][number]" value="4"></td>
+	                     <td><input type="text" name="audit_report_rows[3][5][text]" value="Lorem Ipsum is simply dummy text of the printing and typesetting industry"></td>
+	                     <td><button class="btn btn-danger repeater-remove-row"><i class="fas fa-trash-alt"></i></button></td>
+	                  </tr>
+	                  <tr>
+	                     <td class="row-label">Row 5</td>
+	                     <td><input type="text" name="audit_report_rows[4][1][text]" value="Color Contrast"></td>
+	                     <td><input type="number" name="audit_report_rows[4][2][number]" value="5"></td>
+	                     <td><input type="number" name="audit_report_rows[4][3][number]" value="5"></td>
+	                     <td><input type="number" name="audit_report_rows[4][4][number]" value="5"></td>
+	                     <td><input type="text" name="audit_report_rows[4][5][text]" value="Lorem Ipsum is simply dummy text of the printing and typesetting industry"></td>
+	                     <td><button class="btn btn-danger repeater-remove-row"><i class="fas fa-trash-alt"></i></button></td>
+	                  </tr>
+	                  <tr>
+	                     <td class="row-label">Row 6</td>
+	                     <td><input type="text" name="audit_report_rows[5][1][text]" value="High Contrast"></td>
+	                     <td><input type="number" name="audit_report_rows[5][2][number]" value="6"></td>
+	                     <td><input type="number" name="audit_report_rows[5][3][number]" value="6"></td>
+	                     <td><input type="number" name="audit_report_rows[5][4][number]" value="6"></td>
+	                     <td><input type="text" name="audit_report_rows[5][5][text]" value="Lorem Ipsum is simply dummy text of the printing and typesetting industry"></td>
+	                     <td><button class="btn btn-danger repeater-remove-row"><i class="fas fa-trash-alt"></i></button></td>
+	                  </tr>
+	                  <tr>
+	                     <td class="row-label">Row 7</td>
+	                     <td><input type="text" name="audit_report_rows[6][1][text]" value="Text Spacing"></td>
+	                     <td><input type="number" name="audit_report_rows[6][2][number]" value="7"></td>
+	                     <td><input type="number" name="audit_report_rows[6][3][number]" value="7"></td>
+	                     <td><input type="number" name="audit_report_rows[6][4][number]" value="5"></td>
+	                     <td><input type="text" name="audit_report_rows[6][5][text]" value="Lorem lpsum is simply dummy text of the printing and typesetting industry"></td>
+	                     <td><button class="btn btn-danger repeater-remove-row"><i class="fas fa-trash-alt"></i></button></td>
+	                  </tr>
+	               </tbody>
+	            </table>
+	         </div>
+	         <button class="add-cl btn btn-success repeater-add-row"><i class="fas fa-plus"></i> Add Row</button>
+	      </div>
+	    </form>  
+	    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+	    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js?ver=6.2.3"></script>
+	    
+	    <script>
+	    	
+	    	(function($) {
+    $.fn.repeater = function(params) {
+        var repeater = this;
+        var addRowButton = repeater.find('.repeater-add-row');
+        var addColumnButton = repeater.find('.repeater-add-column');
+        var remove3Row = repeater.find('.repeater-remove-row');
+
+        addRowButton.on('click', function() {
+            addRow();
+        });
+
+        addColumnButton.on('click', function() {
+            addColumn();
+        });
+        remove3Row.on('click', function() {
+            jQuery(this)
+            removeRow(jQuery(this))
+        })
+        if (params.sortable) {
+            repeater.find('tbody').sortable({
+                handle: '.row-label', // You can use a specific element to drag the rows
+                update: function(event, ui) {
+                    $('.row-label').each(function(i) {
+                        var numbering = i + 1;
+                        $(this).text('Row ' + numbering);
+                    });
+                    addRowItem()
+                    setTimeout(function() {
+                        var formData = $('#formId').serialize();
+                        formDataFun(formData);
+                    }, 500)
+                }
+            });
+        }
+
+        function addItem(itemContent, key, isColumn) {
+            var group = itemContent.closest('table').find('thead').data("group"); // Get data-group from the table
+            var item = itemContent;
+            var input = item.find('input, select');
+            input.each(function(index, el) {
+                var attrName = $(el).data('name');
+                var skipName = $(el).data('skip-name');
+                if (skipName !== true) {
+                    var arrayIndex = isColumn ? index + 1 : key + 1;
+                    var name = group + '[' + arrayIndex + ']' + attrName;
+                    $(el).attr('name', name);
+                } else {
+                    if (attrName !== 'undefined') {
+                        $(el).attr('name', attrName);
+                    }
+                }
+            });
+        }
+
+        function addRowItem() {
+            //var repeater = jQuery('.repeater-table');
+            var group = repeater.find('table').find('tbody').data("group");
+            var count = 0;
+            repeater.find('tbody tr').each(function(rowIndex, row) {
+                count = count + 1;
+                jQuery(row).find('.row-label').html('Row ' + count);
+                jQuery(row).find('td').each(function(index, td) {
+                    var attrType = jQuery(td).find('input,textarea').attr('type');
+                    var name = group + '[' + rowIndex + '][' + index + '][' + attrType + ']';
+                    jQuery(td).find('input,textarea').attr('name', name);
+
+                });
+            });
+        }
+
+        function addRow() {
+            var group = repeater.find('table').find('tbody').data("group");
+            var newRow = $('<tr>');
+            var rowIndex = repeater.find('tbody tr').length + 1; // Calculate the row index
+            newRow.append('<td class="row-label">Row ' + rowIndex + '</td>');
+            repeater.find('thead th:gt(0)').each(function(index) {
+                //console.log(index)
+                //var columnName = $(this).find('input').val().trim().split(' ').join('_'); // Get the column name from the th
+                var inputTypeSelect = $('<select>').attr('name', group + '[' + rowIndex + '][' + index + '][select]')
+                    .append('<option value="text">Select</option>')
+                    .append('<option value="text">Text</option>')
+                    .append('<option value="date">Date</option>')
+                    .append('<option value="tel">Tel</option>')
+                    .append('<option value="number">Number</option>')
+                    .append('<option value="checkbox">Checkbox</option>')
+                    .append('<option value="textarea">Textarea</option>')
+                    .on('change', function() {
+                        var selectedType = $(this).val();
+                        var inputField;
+                        if (selectedType === 'textarea') {
+                            inputField = $('<textarea>').attr('type', selectedType).attr('name', group + '[' + rowIndex + '][' + index + '][' + selectedType + ']');
+                        } else {
+                            inputField = $('<input>').attr('type', selectedType).attr('name', group + '[' + rowIndex + '][' + index + '][' + selectedType + ']');
+                        }
+                        $(this).closest('td').html(inputField); // Replace the content of the current td with the input field
+                    });
+                var inputTypeCell = $('<td>').append(inputTypeSelect);
+                newRow.append(inputTypeCell);
+            });
+
+            newRow.append('<td><button class="btn btn-danger repeater-remove-row"><i class="fas fa-trash-alt"></i></button></td>');
+            repeater.find('tbody').append(newRow);
+
+            newRow.find('.repeater-remove-row').on('click', function() {
+                $(this).closest('tr').remove();
+                addRowItem()
+                setTimeout(function() {
+                    var formData = $('#formId').serialize();
+                    formDataFun(formData);
+                }, 500)
+            });
+
+        }
+
+        function addColumn() {
+            var columnIndex = repeater.find('th').length;
+            repeater.find('tr').each(function(index) {
+                $(this).append('<th><input type="text" data-name="column_name"></th>');
+            });
+            repeater.find('th:last-child').append('<button class="btn btn-danger repeater-remove-column"><i class="fas fa-times"></i></button>');
+            repeater.find('th:last-child').wrapInner("<div class='cl-head'></div>")
+            repeater.find('.repeater-remove-column').on('click', function() {
+                var columnIndex = $(this).closest('th').index();
+                removeColumn(columnIndex);
+            });
+            addItem(repeater.find('tr:last-child'), columnIndex, true);
+        }
+
+        function removeColumn(index) {
+            repeater.find('tr').each(function() {
+                $(this).find('th:eq(' + index + '), td:eq(' + index + ')').remove();
+            });
+        }
+
+        function removeRow(removerow) {
+            removerow.closest('tr').remove();
+            addRowItem()
+            setTimeout(function() {
+                var formData = $('#formId').serialize();
+                formDataFun(formData);
+            }, 500)
+        }
+    };
+})(jQuery);
+
+jQuery(document).ready(function($) {
+
+    $(document).find('#repeaterTable').repeater({
+        sortable: true
+    });
+
+    jQuery(document).on('change', '#formId input ,#formId textarea', function() {
+        setTimeout(function() {
+            var formData = $('#formId').serialize();
+            formDataFun(formData);
+        }, 500)
+    });
+
+    jQuery(document).on('change', 'input[type=checkbox]', function() {
+        if (!jQuery(this).prop("checked")) {
+            jQuery(this).attr("value", "off");
+            var name = jQuery(this).attr("name");
+            jQuery(this).after('<input type="hidden" name="' + name + '" value="off">');
+        } else {
+            jQuery(this).attr("value", "on");
+            jQuery(this).next('input[type="hidden"]').remove();
+        }
+    });
+
+
+});
+
+function formDataFun(formData) {
+    console.log(formData)
+
+}
+	    </script>
+   </body>
+</html>
