@@ -1,6 +1,6 @@
 # jQuery Table Repeater
 
-!(https://brand.jquery.org/resources/jquery-mark-dark.gif)
+![jQuery Logo](https://brand.jquery.org/resources/jquery-mark-dark.gif)
 
 ## Overview
 
@@ -28,14 +28,28 @@ Follow these steps to integrate the jQuery Table Repeater into your project:
 ```html
 <!-- Add jQuery Library -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
+<!-- Add jQuery UI Library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js?ver=6.2.3"></script>
 <!-- Include table-repeater.js -->
 <script src="path/to/table-repeater.js"></script>
 
 <!-- Your HTML Table -->
-<table id="yourTable">
-  <!-- Table Content Goes Here -->
-</table>
+## HTML Form Structure
+<form id="formId" onsubmit="return false;">
+    <div id="repeaterTable">
+        <button class="add-cl btn btn-primary repeater-add-column mb-3 mt-3"><i class="fas fa-plus"></i> Add Column</button>
+        <div class="table-res">
+            <table class="table table-bordered text-center repeater-table" data-group="data-group">
+                <!-- Table Header -->
+                <thead data-group="audit_report_column">
+                    <!-- Column Headers -->
+                    <!-- Customize the number and names of columns as needed -->
+                    <tr>
+                        <th></th>
+                        <th><input type="text" data-name="column_name" name="audit_report_column[1]column_name" value="Audit Section"><button class="btn btn-danger repeater-remove-column"><i class="fas fa-times"></i></button></th>
+                        <!-- Add more columns here -->
+                    </tr>
+                </thead>
 
 <!-- Initialize Table Repeater -->
 <script>
